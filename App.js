@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Chat from './src/screen/Chat/Chat';
 
-export default function App() {
+import MainTabNavigator from './src/navigate/MainTabNavigator';
+import SearchHeader from './src/component/SearchHeader';
+import ListFriend from './src/screen/listFriend/ListFriend';
+
+import { View } from 'react-native';
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    // <View style={{ flex: 1 }}>
+    //   <Chat />
+    // </View>
+
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='MainTabs'>
+
+
+        <Stack.Screen
+          name="MainTabs"
+          component={MainTabNavigator}
+          options={{
+            headerTitle: () => <SearchHeader />,
+            headerStyle: {
+              backgroundColor: '#0699f9',
+            },
+          }}
+
+
+        />
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+
+  );
+};
+
+export default App;
